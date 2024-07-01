@@ -1,65 +1,101 @@
-SignUpPresentation
-import SignUpPresentation from './SignupPresentation';
-import {useState} from "react"
-import  toast from 'react-hot-toast';
-function SignUp(){
+/* eslint-disable react-hooks/exhaustive-deps */
+SignUpPresentation;
+import SignUpPresentation from "./SignupPresentation";
+import { useState, useCallback} from "react";
+import toast from "react-hot-toast";
+import { createAccount } from "./../../Redux/Slices/AuthSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-    const [signUpState, setsignUpState] = useState({
-        firstName:"",
-        email:"",
-        mobileNumber:"",
-        password:""
-    });
+const debounce = (func, delay) => {
+  let debounceTimer;
+  return function (...args) {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => func.apply(this, args), delay);
+  };
+};
 
+function SignUp() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [signUpState, setsignUpState] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    mobileNumber: "",
+    password: "",
+  });
+  const handleUserInput = useCallback(
+    debounce((e) => {
+      const { name, value } = e.target;
+      setsignUpState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }, 300),
+    []
+  );
 
-    function handleUserInput(e){
-        const {name,value}=e.target;
-        setsignUpState({
-            ...signUpState,
-            [name]:value
-        })
+  async function handleFormSubmit(e) {
+    e.preventDefault(); 
+    if (
+      !signUpState.email ||
+      !signUpState.mobileNumber ||
+      !signUpState.password ||
+      !signUpState.firstname ||
+      !signUpState.lastname
+    ) {
+      toast.error("Missing values from the form",200);
+      return;
     }
 
-    function handleFormSubmit(e) {
-        e.preventDefault(); // prevent the form from reloading the page
-        console.log(signUpState);
+    if (signUpState.firstname.length < 5 || signUpState.firstname.length > 20) {
+      toast.error(
+        "First name should be atleast 5 characters long and maximum 20 characters long"
+      );
+      return;
+    }
 
-        // Add validations for the form input
-        if(!signUpState.email || !signUpState.mobileNumber || !signUpState.password || !signUpState.firstName) {
-            toast.error("Missing values from the form")
-            return;
-        }
+    if (signUpState.lastname.length < 5 || signUpState.lastname.length > 20) {
+      toast.error(
+        "First name should be atleast 5 characters long and maximum 20 characters long"
+      );
+      return;
+    }
 
-        if(signUpState.firstName.length < 5 || signUpState.firstName.length > 20) {
-            toast.error("First name should be atleast 5 characters long and maximum 20 characters long")
-            return;
-        }
+    if (!signUpState.email.includes("@") || !signUpState.email.includes(".")) {
+      toast.error("Invalid email address");
+      return;
+    }
 
-        // check email
-        if(!signUpState.email.includes('@') || !signUpState.email.includes('.')) {
-            toast.error("Invalid email address")
-            return;
-        }
+    if (
+      signUpState.mobileNumber.length < 10 ||
+      signUpState.mobileNumber.length > 10
+    ) {
+      toast.error("Mobile number should be of 10 characters");
+      return;
+    }
 
-        // check mobile number length to be between 10-12
-        if(signUpState.mobileNumber.length < 10 || signUpState.mobileNumber.length > 12) {
-            toast.error("Mobile number should be between 10-12 characters")
-            return;
-        }
+    if (signUpState.password.length != 10) {
+      toast.error("Password should be of lenght 10");
+      return;
     }
 
 
+    const apiResponse = await dispatch(createAccount(signUpState));
+      console.log(apiResponse);
+      if (apiResponse.payload.success === true) {
+        navigate("/auth/login");
+      }
+  }
 
 
-
-    return (
-        <SignUpPresentation
-        handleUserInput={handleUserInput}
-        handleFormSubmit={handleFormSubmit}/> 
-
-        
-    )
-    
+  return (
+    <SignUpPresentation
+      handleUserInput={handleUserInput}
+      handleFormSubmit={handleFormSubmit}
+    />
+  );
 }
 
-export default SignUp
+export default SignUp;

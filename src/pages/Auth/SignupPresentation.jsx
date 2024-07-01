@@ -7,12 +7,12 @@ function SignUpPresentation({ handleUserInput, handleFormSubmit }) {
     return (
    <Layout>
          <section className="text-gray-600 body-font">
-          <div className="flex flex-wrap     items-center h-screen px-10 py-6 mx-auto">
+          <div className="flex flex-wrap   items-center h-screen px-10 py-6 mx-auto">
                 <div className="hidden pr-0 lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 md:block">
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
-                    width="500"
+                   className="w-full"
                     height="400"
                     viewBox="0 0 550.59998 412.44495"
                     >
@@ -149,19 +149,31 @@ function SignUpPresentation({ handleUserInput, handleFormSubmit }) {
                     </svg>
                 </div>
 
-                    <form className="flex flex-col w-full p-8 mt-10 bg-gray-100 rounded-lg lg:w-2/6 md:w-1/2 md:ml-auto md:mt-0">
+                    <form className="flex flex-col w-full p-8  bg-gray-100 rounded-lg lg:w-2/6 md:w-1/2 md:ml-auto md:mt-0">
                         <h2 className="mb-5 text-lg font-medium text-gray-900 title-font">Sign up</h2>
 
                         <div className="relative mb-4">
-                            <label htmlFor="firstName" className="text-sm leading-7 text-gray-600">First Name</label>
+                            <label htmlFor="firstname" className="text-sm leading-7 text-gray-600">First Name</label>
                             <input 
                                 type="text" 
-                                id="firstName" 
-                                name="firstName" 
+                                id="firstname" 
+                                name="firstname" 
                                 required 
                                 onChange={handleUserInput}
                                 minLength={5}
                                 placeholder="John"
+                                className="w-full px-3 py-1 mt-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out border border-gray-300 rounded outline-noe focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200" />
+                        </div>
+                        <div className="relative mb-4">
+                            <label htmlFor="lastname" className="text-sm leading-7 text-gray-600">Last Name</label>
+                            <input 
+                                type="text" 
+                                id="lastname" 
+                                name="lastname" 
+                                required 
+                                onChange={handleUserInput}
+                                minLength={5}
+                                placeholder="Doe"
                                 className="w-full px-3 py-1 mt-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out border border-gray-300 rounded outline-noe focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200" />
                         </div>
 

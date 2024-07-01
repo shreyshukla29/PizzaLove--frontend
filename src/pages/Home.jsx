@@ -9,7 +9,22 @@ import Pickup from "../assets/Images/pickup.png";
 import Enjoy from "../assets/Images/enjoy.png";
 import Layout from "./../layout/Layout";
 
+
+import { useNavigate } from 'react-router-dom';
+
 function Home() {
+
+
+  const navigate = useNavigate();
+
+  function handleOrderNow(e){
+
+    e.preventDefault(); 
+    navigate('/products')
+
+  }
+
+ 
   return (
     <Layout>
       <div>
@@ -28,7 +43,8 @@ function Home() {
               of your home. Enjoy the best pizza in town with just a few clicks.
             </p>
 
-            <button className="flex items-center px-4 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-600 group w-[139px]">
+            <button className="flex items-center px-4 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-600 group w-[139px]"
+            onClick={handleOrderNow}>
               Order Now
               <span className="inline-block ml-3 transition-transform ease-in-out group-hover:translate-x-2">
                 <IconArrowRight />
@@ -150,7 +166,7 @@ function Home() {
               <iframe
                 title="Google Maps"
                 src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4965.744161636954!2d-0.16357888897852244!3d51.51556278492162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C%20UK!5e0!3m2!1sen!2sin!4v1719229827491!5m2!1sen!2sin&output=embed`}
-                width="600"
+                className="w-full"
                 height="300"
                 style={{ border: 0 }}
                 allowFullScreen
