@@ -18,7 +18,11 @@ function Layout({ children }) {
 
   async function handleLogout(e) {
     e.preventDefault();
-    dispatch(logout());
+   const resp = await  dispatch(logout());
+
+   if(resp.payload.success === true){
+    navigate('/')
+   }
   }
 
   function handleCartClick(e) {
