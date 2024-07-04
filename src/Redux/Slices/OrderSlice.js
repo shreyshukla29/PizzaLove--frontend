@@ -96,6 +96,7 @@ const OrderSlice =createSlice({
           state.orders=action.payload?.data;
 
       })
+     
   }
 })
 

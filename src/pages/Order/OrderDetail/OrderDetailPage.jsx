@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { getOrder, CancelOrder } from "./../../../Redux/Slices/OrderSlice";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 const OrderDetailPresentation = lazy(() =>  import("./OrderDetailPagePresentation")
 );
@@ -12,6 +12,7 @@ import PageLoader from "./../../../Components/loading/PageLoader";
 function OrderDetailPage() {
   const dispatch = useDispatch();
   const { orderId } = useParams();
+  const navigate = useNavigate();
 
   const [orderDetail, setorderDetail] = useState({});
 

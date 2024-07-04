@@ -46,6 +46,8 @@ export const refreshLogin = createAsyncThunk(
 
     try {
       const response = await axiosinstance.post("/auth/referesh/login");
+
+      console.log('referseh token resp',response)
      
       return response.data;
     } catch (error) {
@@ -75,6 +77,7 @@ export const login = createAsyncThunk(
       });
 
      const loginresp = await response;
+    
       return loginresp.data;
     } catch (error) {
       
@@ -137,6 +140,7 @@ const AuthSlice = createSlice({
     });
 
     builder.addCase(refreshLogin.rejected, (state) => {
+      console.log('login rejected')
       localStorage.clear();
       state.isLoggedIn = false;
       state.role = "";
