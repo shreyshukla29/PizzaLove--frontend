@@ -3,7 +3,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosinstance from "../../Helpers/axiosinstance";
 import { toast } from "react-hot-toast";
 
-
 const initialState = {
   isLoggedIn: localStorage.getItem("isLoggedIn") === "true" || false,
   role: localStorage.getItem("role") || "",
@@ -133,8 +132,8 @@ const AuthSlice = createSlice({
       state.isLoggedIn = false;
       state.role = "";
       state.data = {};
+       
 
-    
     });
 
     builder.addCase(refreshLogin.rejected, (state) => {
@@ -142,6 +141,7 @@ const AuthSlice = createSlice({
       state.isLoggedIn = false;
       state.role = "";
       state.data = {};
+
     });
   },
 });

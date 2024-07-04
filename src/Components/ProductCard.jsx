@@ -2,12 +2,13 @@
 import { useNavigate } from "react-router-dom";
 /* eslint-disable no-unused-vars */
 
-function ProductCard({ detail, img_url, productName, price, id }) {
+function ProductCard({ detail, img_url, productName, price, id, Category, handlenavigation}) {
   const navigate = useNavigate();
 
   function handleProductclick(e) {
     e.preventDefault();
-    navigate(`/product/${id}`);
+    handlenavigation(id);
+   
   }
 
   return (
@@ -32,9 +33,11 @@ function ProductCard({ detail, img_url, productName, price, id }) {
         >
           <h3 className="  font-bold text-lg">&#8377; {price}</h3>
 
-          <button className="text-sm text-green-500 border border-green-500 px-2">
-            Add to Cart
-          </button>
+         {Category === 'veg' ? ( <div className="text-sm text-green-500 border border-green-500  px-4 py-1 font-semibold ">
+           {Category}
+          </div>):( <div className="text-sm text-red-500 border border-red-500 px-2 py-1 font-semibold">
+           {Category}
+          </div>)}
         </div>
       </div>
     </div>

@@ -8,9 +8,9 @@ function AddProduct() {
   const [productDetails, setproductDetails] = useState({
     productName: "",
     productPrice: 0,
-    productImage: null,
+    productImage:null,
     description: "",
-    Category: "",
+    Category: "veg",
     InStock: true,
     quantity: 1,
   });
@@ -25,21 +25,28 @@ function AddProduct() {
   }
 
   function handleAdminInput(e) {
-    console.log("input");
-    console.log(e.target.value);
     const { name, value } = e.target;
     setproductDetails((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === 'productPrice' || name === 'quantity' ? parseFloat(value) : value,
     }));
   }
   const dispatch = useDispatch();
 
   function handleAddProduct(e) {
-    console.log(productDetails);
     e.preventDefault();
-    console.log("here");
-    const apiresponse = dispatch(addProducts(setproductDetails));
+
+    const formData = new FormData();
+    formData.append('productName', productDetails.productName);
+    formData.append('productPrice', productDetails.productPrice);
+    formData.append('productImage', productDetails.productImage);
+    formData.append('description', productDetails.description);
+    formData.append('Category', productDetails.Category);
+    formData.append('InStock', productDetails.InStock);
+    formData.append('quantity', productDetails.quantity);
+
+    // Dispatch the action with formData
+    const apiresponse = dispatch(addProducts(formData));
     console.log("apiresp", apiresponse);
   }
 
@@ -53,7 +60,7 @@ function AddProduct() {
           <div className="max-w-md md:w-4/6 mx-auto  bg-white p-4">
             <h2 className="mb-4 text-2xl font-semibold">Add product</h2>
 
-            <form>
+            <form  encType="multipart/form-data">
               {/* product name */}
               <div className="mb-4">
                 <label

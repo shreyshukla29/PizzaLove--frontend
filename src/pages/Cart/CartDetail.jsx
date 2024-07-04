@@ -59,7 +59,7 @@ function CartDetails() {
                       key={item._id}
                       className="p-4 text-gray-900 rounded-lg shadow-lg  md:p-6 border"
                     >
-                      <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                      <div className="space-y-4 flex md:items-center gap-4 md:gap-6 md:space-y-0">
                         <img
                           className="hidden w-20 h-20 dark:block rounded-md"
                           src={item?.product?.productImage}
@@ -67,7 +67,8 @@ function CartDetails() {
                         />
                         <div className="flex-1 w-full min-w-0 md:order-2 md:max-w-md">
                           <p className="text-base font-medium text-gray-900 hover:underline">
-                            <Link to={`/product/${item?._id}`}>
+                            
+                            <Link to={`/product/${item?.product?._id}`}>
                               {`${item?.product?.productName}, ${item?.product?.description}, Category: ${item?.product?.Category}`}
                             </Link>
                           </p>
@@ -108,8 +109,9 @@ function CartDetails() {
                 </div>
               </div>
 
+
               <div className="flex-1 max-w-4xl mx-auto mt-6 space-y-6 lg:mt-0 lg:w-full">
-                <div className="p-4 space-y-4 text-gray-800 border rounded-lg shadow-sm bg-gradient-to-r from-amber-50 to-orange-300 sm:p-6">
+                <div className="p-4 space-y-4 text-gray-800 border rounded-lg shadow-lg bg-Neutral-50 sm:p-6">
                   <p className="text-xl font-semibold text-gray-900 ">
                     Order summary
                   </p>
@@ -150,7 +152,7 @@ function CartDetails() {
                   </div>
                   {cartDetails?.items.length > 0 && (
                     <Link
-                      to={"/order"}
+                      to={"/order/checkout"}
                       className="flex justify-center text-white bg-yellow-400 border border-yellow-500 rounded-md hover:bg-yellow-700"
                     >
                       Proceed to Checkout

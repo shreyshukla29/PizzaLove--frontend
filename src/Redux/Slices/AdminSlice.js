@@ -7,12 +7,10 @@ const initialState = {
   products: [],
 };
 
-
 export const addProducts = createAsyncThunk(
   "/products/add",
   async (data, { rejectWithValue }) => {
-
-    console.log('data in thunk', data)
+    console.log("data in thunk", data);
 
     try {
       const product = await axiosinstance.post("/products/create", data);
@@ -31,9 +29,9 @@ export const addProducts = createAsyncThunk(
 
 export const deleteProducts = createAsyncThunk(
   "/products/delete",
-  async (data, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
-      const product = await axiosinstance.post("/products//delete/:id", data);
+      const product = await axiosinstance.delete(`/products/delete/${id}`);
 
       if (!product) toast("Loading...");
       toast.success("successfully delete Product");
@@ -68,7 +66,7 @@ export const updateProduct = createAsyncThunk(
 const AdminSlice = createSlice({
   name: "product",
   initialState,
-  reducer: {},
+  reducers: {},
 });
 
 export default AdminSlice.reducer;

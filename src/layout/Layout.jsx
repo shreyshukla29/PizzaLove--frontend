@@ -62,11 +62,13 @@ function Layout({ children }) {
         </div>
         <div className="flex gap-10">
           <ul className="hidden sm:flex space-x-8 text-lg items-center">
-            <li className="hover:text-[#F0f0f0] hover:pointer transition duration-300 ease-in-out cursor-pointer">
-              <p>Menu</p>
+            <li className="hover:text-[#F0f0f0] hover:pointer transition duration-300 ease-in-out cursor-pointer"
+             onClick={()=> navigate('/')}>
+              <p>Home</p>
             </li>
-            <li className="hover:text-[#F0f0f0] transition duration-300 ease-in-out cursor-pointer">
-              <p>Services</p>
+            <li className="hover:text-[#F0f0f0] transition duration-300 ease-in-out cursor-pointer"
+            onClick={()=> navigate('/orders/user')}>
+              <p>Orders</p>
             </li>
             <li className="hover:text-[#F0f0f0] transition duration-300 ease-in-out cursor-pointer">
               <p>About</p>

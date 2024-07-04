@@ -204,13 +204,3 @@ function ProductDetailPage() {
 }
 
 export default ProductDetailPage;
-
-{
-  /* <div className = "flex">
-  <button class="bg-red-500 w-6 h-6 flex items-center justify-center rounded-full text-white mb-1">-</button>
-    <p class="text-sm">0</p>
-    <button class="bg-green-500 w-6 h-6 flex items-center justify-center rounded-full text-white mt-1">+
-    </button>
-    
-    </div>*/
-}

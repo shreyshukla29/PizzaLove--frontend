@@ -28,7 +28,6 @@ function Login() {
       [name]: value,
     });
   }
-
   async function handleFormSubmit(e) {
     e.preventDefault(); // prevent the form from reloading the page
 

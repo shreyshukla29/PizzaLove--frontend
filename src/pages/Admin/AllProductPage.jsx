@@ -1,28 +1,27 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/jsx-key */
-import Layout from "./../layout/Layout";
+import Layout from "./../../layout/Layout";
 import { useEffect } from "react";
-import { getallProducts } from "./../Redux/Slices/ProductSlice";
+
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { lazy, Suspense } from "react";
 
-
-
 const ProductCard = lazy (() =>
-  import("./../Components/ProductCard")
+  import("./../../Components/ProductCard")
+
 );
-import ProductCardLoader from './../Components/loading/ProductCardLoader';
+import { getallProducts } from './../../Redux/Slices/ProductSlice';
+import ProductCardLoader from './../../Components/loading/ProductCardLoader';
 import { useNavigate } from 'react-router-dom';
-function ProductsPage() {
+
+
+function AllProductsPage() {
   const { productData } = useSelector((state) => state.product);
   console.log(productData);
-  const navigate =useNavigate()
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
   const handlenavigation =(id)=>{
-    navigate(`/product/${id}`);
+    navigate(`/admin/product/modify/${id}`);
   }
 
   useEffect(() => {
@@ -44,7 +43,6 @@ function ProductsPage() {
                 id={product._id}
                 Category = {product.Category}
                 handlenavigation={handlenavigation}
-                
               />
             </Suspense>
           ))}
@@ -54,4 +52,4 @@ function ProductsPage() {
   );
 }
 
-export default ProductsPage;
+export default AllProductsPage;
