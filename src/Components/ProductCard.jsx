@@ -14,7 +14,7 @@ function ProductCard({ detail, img_url, productName, price, id, Category, handle
   return (
     <div
       className="flex flex-col  items-center  w-[95%]
-        shadow-md   rounded-lg h-[320px]  md:h-[350px] lg:h-[400px]  sm:w-[40%] md:w-[40%] lg:w-[22%] "
+        shadow-md   rounded-lg   md:h-[350px] lg:h-[400px]  sm:w-[40%] md:w-[40%] lg:w-[22%] "
       onClick={handleProductclick}
     >
       <div className="  w-full rounded-lg  h-[65%]  ">
