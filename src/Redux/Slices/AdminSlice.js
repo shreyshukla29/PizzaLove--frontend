@@ -47,13 +47,14 @@ export const deleteProducts = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
   "/products/update",
-  async (data, { rejectWithValue }) => {
+  async (data,{ rejectWithValue }) => {
+
+    const id = data.id;
+    const details = data.details;
+    console.log('into thunk' , data)
     try {
-      const product = await axiosinstance.post("/products//update/:id", data);
-
-      if (!product) toast("Loading...");
+      const product = await axiosinstance.post(`/products/update/${id}`, details);
       toast.success("successfully update Product");
-
       console.log(product.data);
       return product.data;
     } catch (error) {

@@ -11,23 +11,30 @@ function Login() {
     password: "",
   });
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn, role } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoggedIn === true) {
-      navigate("/");
+    if (isLoggedIn) {
+      if (role === 'USER') {
+        navigate("/");
+      } else if (role === 'ADMIN') {
+        navigate("/admin/products");
+      }
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, role, navigate]);
 
   function handleUserInput(e) {
+    e.preventDefault();
     const { name, value } = e.target;
-    setLoginState({
-      ...LoginState,
+    setLoginState((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   }
+
   async function handleFormSubmit(e) {
     e.preventDefault(); // prevent the form from reloading the page
 
@@ -42,16 +49,18 @@ function Login() {
       toast.error("Invalid email address");
       return;
     }
-   
 
     const apiResponse = await dispatch(login(LoginState));
-    console.log('back')
-    console.log(apiResponse);
+    console.log(apiResponse.payload);
+    console.log(isLoggedIn, " ", role);
 
-    if (apiResponse.payload.success === true) {
-      navigate("/");
+    if (apiResponse.payload?.success) {
+      if (role === 'USER') {
+        navigate("/");
+      } else if (role === 'ADMIN') {
+        navigate("/admin/products");
+      }
     }
-
   }
 
   return (
@@ -61,4 +70,5 @@ function Login() {
     />
   );
 }
+
 export default Login;

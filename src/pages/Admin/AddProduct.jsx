@@ -1,9 +1,10 @@
-import Layout from "./../../layout/Layout";
+
 
 import Food from "../../assets/Images/Food.svg";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { addProducts } from "./../../Redux/Slices/AdminSlice";
+import AdminLayout from './../../layout/AdminLayout';
 function AddProduct() {
   const [productDetails, setproductDetails] = useState({
     productName: "",
@@ -51,7 +52,7 @@ function AddProduct() {
   }
 
   return (
-    <Layout>
+    <AdminLayout>
       <section className="py-12">
         <div className="flex items-center justify-center px-5">
           <div className="hidden md:block md:w-2/6">
@@ -190,7 +191,7 @@ function AddProduct() {
           </div>
         </div>
       </section>
-    </Layout>
+    </AdminLayout>
   );
 }
 

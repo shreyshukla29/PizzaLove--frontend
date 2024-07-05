@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Footer from "../Components/Footer";
 import Pizzalogo from "../assets/Images/pizza1.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,13 +7,12 @@ import { Toaster } from "react-hot-toast";
 
 import { refreshLogin } from "./../Redux/Slices/AuthSlice";
 import { useEffect } from "react";
-import Cartsvg from "./../Components/Icons/Cartsvg";
 
 import ProfileDropdown from '../Components/ProfileDropDown';
 
 // eslint-disable-next-line react/prop-types
-function Layout({ children }) {
-  const { isLoggedIn ,role} = useSelector((state) => state.auth);
+function AdminLayout({ children }) {
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,10 +25,6 @@ function Layout({ children }) {
    }
   }
 
-  function handleCartClick(e) {
-    e.preventDefault();
-    navigate("/cart");
-  }
 
   const handleRefreshLogin = async () => {
     if (isLoggedIn === true) {
@@ -70,12 +64,12 @@ function Layout({ children }) {
 
           <ul className="hidden sm:flex space-x-8 text-lg items-center pr-10">
             <li className="hover:text-[#F0f0f0] hover:pointer transition duration-300 ease-in-out cursor-pointer"
-             onClick={()=> navigate('/')}>
+             onClick={()=> navigate('/admin/products')}>
               <p>Home</p>
             </li>
             <li className="hover:text-[#F0f0f0] transition duration-300 ease-in-out cursor-pointer"
-            onClick={()=> navigate('/orders/user')}>
-              <p>Orders</p>
+            onClick={()=> navigate('/admin/addProduct')}>
+              <p>Add</p>
             </li>
             <li className="hover:text-[#F0f0f0] transition duration-300 ease-in-out cursor-pointer">
               <p>About</p>
@@ -83,13 +77,6 @@ function Layout({ children }) {
           </ul>
 
           <ul className="flex items-center gap-10 text-lg ">
-           {role === 'ADMIN' &&  <li className="hidden sm:block cursor-pointer"
-           onClick={()=> navigate('/admin/products')}>
-              Admin
-            </li>}
-            <li className=" cursor-pointer" onClick={handleCartClick}>
-              <Cartsvg />
-            </li>
             <li className="hidden sm:block hover:text-[#f0f0f0] ease-in-out">
               {isLoggedIn === true ? (
                 <Link onClick={handleLogout}>Logout</Link>
@@ -112,4 +99,4 @@ function Layout({ children }) {
   );
 }
 
-export default Layout;
+export default AdminLayout;

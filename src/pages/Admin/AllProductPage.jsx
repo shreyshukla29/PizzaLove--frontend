@@ -1,6 +1,5 @@
-import Layout from "./../../layout/Layout";
-import { useEffect } from "react";
 
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { lazy, Suspense } from "react";
@@ -12,6 +11,7 @@ const ProductCard = lazy (() =>
 import { getallProducts } from './../../Redux/Slices/ProductSlice';
 import ProductCardLoader from './../../Components/loading/ProductCardLoader';
 import { useNavigate } from 'react-router-dom';
+import AdminLayout from './../../layout/AdminLayout';
 
 
 function AllProductsPage() {
@@ -29,7 +29,7 @@ function AllProductsPage() {
   }, []);
 
   return (
-    <Layout>
+    <AdminLayout>
       <div className=" flex w-full h-full items-center justify-center  mx-auto my-10 ">
         <div className="flex flex-wrap  w-[95%] gap-10 ">
           {productData.map((product) => (
@@ -48,7 +48,7 @@ function AllProductsPage() {
           ))}
         </div>
       </div>
-    </Layout>
+    </AdminLayout>
   );
 }
 
