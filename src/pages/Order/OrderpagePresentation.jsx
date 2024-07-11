@@ -68,24 +68,24 @@ function OrderPagePresentation() {
                   className="flex gap-10 bg-gray-100 px-2 rounded-lg items-center  py-4"
                 >
                   <div className="hidden md:block">
-                    <img src={products.product.productImage} alt="" />
+                    <img src={products?.product?.productImage} alt="" />
                   </div>
                   <div className="flex flex-col overflow-hidden gap-2">
                     <h1 className="text-xl font-bold">
-                      {products.product.productName} x {products.quantity}{" "}
+                      {products?.product?.productName} x {products?.quantity}{" "}
                     </h1>
                     <p className=" truncate overflow-hidden whitespace-nowrap text-sm font-semobold">
-                      {products.product.description}
+                      {products?.product?.description}
                     </p>
                     <h1 className="text-md font-bold ">
-                      &#8377; {products.product.productPrice}
+                      &#8377; {products?.product?.productPrice}
                     </h1>
                   </div>
                 </div>
               ))}
 
               <h1 className="text-xl font-bold px-2">
-                &#8377; {order.totalPrice}
+                &#8377; {order?.totalPrice}
               </h1>
             </div>
           ))}
