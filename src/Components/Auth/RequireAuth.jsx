@@ -1,11 +1,13 @@
 
 import { useSelector } from 'react-redux';
-import {Outlet , Navigate} from 'react-router-dom'
+import {Outlet } from 'react-router-dom'
+import Denied from './../../pages/Denied';
+
 function RequireAuth (){
 
     const {isLoggedIn} = useSelector((state)=>state.auth);
 
-    return isLoggedIn ? <Outlet/> : <Navigate to ='/auth/login' />
+    return isLoggedIn ? <Outlet/> : <Denied/>
 }
 
 export default RequireAuth;
