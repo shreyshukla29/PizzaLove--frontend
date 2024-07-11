@@ -45,17 +45,17 @@ function OrderPagePresentation() {
         <div className="flex flex-col-reverse gap-10 mt-10">
           {orders?.map((order) => (
             <div
-              key={order._id}
+              key={order?._id}
               className="flex flex-col shadow-lg rounded-lg px-4 py-6 mx-4 gap-4"
-              onClick={() => navigate(`/orders/user/${order._id}`)}
+              onClick={() => navigate(`/orders/user/${order?._id}`)}
             >
               <div>
                 <h1 className="text-green-500 text-xl px-2 font-semibold">
-                  {order.status}
+                  {order?.status}
                 </h1>
                 <span className="px-2 font-semibold text-sm text-gray-400">
                   on{" "}
-                  {new Date(order.createdAt).toLocaleDateString(
+                  {new Date(order?.createdAt).toLocaleDateString(
                     "en-US",
                     options
                   )}
@@ -64,7 +64,7 @@ function OrderPagePresentation() {
 
               {order?.items?.map((products) => (
                 <div
-                  key={products.product._id}
+                  key={products.product?._id}
                   className="flex gap-10 bg-gray-100 px-2 rounded-lg items-center  py-4"
                 >
                   <div className="hidden md:block">
