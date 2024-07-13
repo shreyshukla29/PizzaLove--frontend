@@ -34,7 +34,7 @@ function OrderDetailPresentation({ orderDetail, handledeleteOrder }) {
     return <PageLoader></PageLoader>; 
   }
   return (
-    <section className="h-full max-w-screen-xl antialiased py-6 mx-auto">
+    <section className="h-full w-full antialiased py-6 mx-auto">
       <div className="mx-auto px-4 flex flex-col h-full py-4">
         <div className="flex justify-between items-center">
           <h1
