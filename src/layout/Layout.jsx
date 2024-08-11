@@ -11,12 +11,16 @@ import { useEffect } from "react";
 import Cartsvg from "./../Components/Icons/Cartsvg";
 
 import ProfileDropdown from '../Components/ProfileDropDown';
+import SuprSendInbox from '@suprsend/react-inbox'
+import 'react-toastify/dist/ReactToastify.css' 
 
+const Workspace_key = import.meta.env.VITE_WORKSPACE_KEY
 // eslint-disable-next-line react/prop-types
 function Layout({ children }) {
-  const { isLoggedIn ,role} = useSelector((state) => state.auth);
+  const { isLoggedIn ,role,data} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log('email',data.email)
 
   async function handleLogout(e) {
     e.preventDefault();
@@ -89,6 +93,14 @@ function Layout({ children }) {
             </li>}
             <li className=" cursor-pointer" onClick={handleCartClick}>
               <Cartsvg />
+            </li>
+            <li className="cursor-pointer">
+            <SuprSendInbox
+  
+  workspaceKey={ Workspace_key}
+  subscriberId= "yJ1LDy-a5g0KpZaldTIgHttM07rchOhZF5hlVWkeIDc"
+  distinctId= {data.email}
+/>
             </li>
             <li className="hidden sm:block hover:text-[#f0f0f0] ease-in-out">
               {isLoggedIn === true ? (

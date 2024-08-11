@@ -11,33 +11,31 @@ const initialState = {
 
 export const createAccount = createAsyncThunk(
   "/auth/createAccount",
-  async (data,{rejectWithValue}) => {
+  async (data, { rejectWithValue }) => {
     console.log("data into thunk", data);
 
     try {
       const response = axiosinstance.post("/users/create", data);
-       toast.promise(response, {
-      success: (resolvedPromise) => {
-        return resolvedPromise.data.message;
-      },
-      loading: "Hold back tight, we are resgistering you",
-      error: (rejctedPromise) => {
-        return rejctedPromise.response?.data.message || "something went wrong";
-      },
-    });
+      toast.promise(response, {
+        success: (resolvedPromise) => {
+          return resolvedPromise.data.message;
+        },
+        loading: "Hold back tight, we are resgistering you",
+        error: (rejctedPromise) => {
+          return (
+            rejctedPromise.response?.data.message || "something went wrong"
+          );
+        },
+      });
 
-    const signupresp = await response;
-    return signupresp.data;
+      const signupresp = await response;
+      return signupresp.data;
     } catch (error) {
-
       console.log(error.response.data);
       return rejectWithValue(error.response.data);
-
-      
     }
   }
 );
-
 
 export const refreshLogin = createAsyncThunk(
   "/auth/autoLogout",
@@ -47,8 +45,8 @@ export const refreshLogin = createAsyncThunk(
     try {
       const response = await axiosinstance.post("/auth/referesh/login");
 
-      console.log('referseh token resp',response)
-     
+      console.log("referseh token resp", response);
+
       return response.data;
     } catch (error) {
       console.log("here");
@@ -58,13 +56,12 @@ export const refreshLogin = createAsyncThunk(
   }
 );
 
-
 export const login = createAsyncThunk(
   "/auth/login",
   async (data, { rejectWithValue }) => {
     console.log("data into thunk", data);
     try {
-      const response =  axiosinstance.post("/auth/login", data);
+      const response = axiosinstance.post("/auth/login", data);
 
       toast.promise(response, {
         success: (resolvedPromise) => {
@@ -72,41 +69,43 @@ export const login = createAsyncThunk(
         },
         loading: "Hold back tight, we are login you",
         error: (rejctedPromise) => {
-          return rejctedPromise.response?.data.message || "something went wrong";
+          return (
+            rejctedPromise.response?.data.message || "something went wrong"
+          );
         },
       });
 
-     const loginresp = await response;
-    
+      const loginresp = await response;
+
       return loginresp.data;
     } catch (error) {
-      
-      console.log("error in login",error.response.data);
+      console.log("error in login", error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
-export const logout = createAsyncThunk("/auth/logout",   async (_, { rejectWithValue }) => {
- try {
+export const logout = createAsyncThunk(
+  "/auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = axiosinstance.post("/auth/logout");
+      toast.promise(response, {
+        success: "log out successfully",
+        loading: "Logging Out",
+        error: (rejctedPromise) => {
+          return rejctedPromise.response.data.message;
+        },
+      });
 
-  const response = axiosinstance.post("/auth/logout");
-  toast.promise(response, {
-    success: "log out successfully",
-    loading: "Logging Out",
-    error: (rejctedPromise) => {
-      return rejctedPromise.response.data.message;
-    },
-  });
-
-  const logoutresp = await response;
-  return logoutresp.data;
-  
- } catch (error) {
-  console.log("error in logout",error.response.data);
+      const logoutresp = await response;
+      return logoutresp.data;
+    } catch (error) {
+      console.log("error in logout", error.response.data);
       return rejectWithValue(error.response.data);
- }
-});
+    }
+  }
+);
 
 const AuthSlice = createSlice({
   name: "auth",
@@ -116,11 +115,10 @@ const AuthSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       // reducer which will execute when the login thunk in fullfilled
 
-      console.log("action" , action.payload);
+      console.log("action", action.payload);
       state.isLoggedIn = true;
       state.role = action.payload?.data.userRole;
       state.data = action.payload?.data.userDetail;
-
 
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("role", action.payload?.data.userRole);
@@ -135,17 +133,14 @@ const AuthSlice = createSlice({
       state.isLoggedIn = false;
       state.role = "";
       state.data = {};
-       
-
     });
 
     builder.addCase(refreshLogin.rejected, (state) => {
-      console.log('login rejected')
+      console.log("login rejected");
       localStorage.clear();
       state.isLoggedIn = false;
       state.role = "";
       state.data = {};
-
     });
   },
 });
