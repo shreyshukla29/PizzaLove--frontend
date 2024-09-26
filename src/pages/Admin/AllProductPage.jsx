@@ -12,12 +12,13 @@ import { getallProducts } from "./../../Redux/Slices/ProductSlice";
 import ProductCardLoader from "./../../Components/loading/ProductCardLoader";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "./../../layout/AdminLayout";
+import PageLoader from './../../Components/loading/PageLoader';
 
 function AllProductsPage() {
   const { productData } = useSelector((state) => state.product);
   console.log(productData);
+  const [isLoading, setisLoading] = useState(true);
 
- 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -28,11 +29,12 @@ function AllProductsPage() {
 
   useEffect(() => {
     dispatch(getallProducts());
+    if(productData.lenght>0){
+      setisLoading(false);
+    }
   }, []);
 
-
-  
-
+  if(isLoading)return <PageLoader/>
   return (
     <AdminLayout>
       <div className=" flex w-full h-full items-center justify-center  mx-auto my-10 ">

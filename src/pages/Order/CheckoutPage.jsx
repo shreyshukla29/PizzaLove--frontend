@@ -6,6 +6,7 @@ import axiosinstance from "./../../Helpers/axiosinstance";
 import { toast } from 'react-hot-toast';
 import {placeOrder} from '../../Redux/Slices/OrderSlice'
 import { useNavigate } from 'react-router-dom';
+import PageLoader from './../../Components/loading/PageLoader';
 
 function Checkout() {
   const [formData, setFormData] = useState({
@@ -26,6 +27,8 @@ function Checkout() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  const [isLoading, setisLoading] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,10 +105,20 @@ function Checkout() {
 
   function fetchCart() {
     dispatch(getCartDetails());
+    setisLoading(false);
   }
   useEffect(() => {
     fetchCart();
   }, []);
+
+  if(isLoading){
+    return (
+      <Layout>
+        <PageLoader/>
+         </Layout>
+
+    );
+  }
 
   return (
     <Layout>

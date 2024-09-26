@@ -8,11 +8,15 @@ import {
 import Layout from "../../layout/Layout";
 import { Link } from "react-router-dom";
 
+
+
 import EmptyCartsvg from './../../Components/Icons/EmptyCart';
+import PageLoader from './../../Components/loading/PageLoader';
 
 function CartDetails() {
   const [cartDetails, setCartDetails] = useState();
   const { cartData } = useSelector((state) => state.cart);
+  const [isLoading, setisLoading] = useState(true);
 
   console.log("cart data", cartData);
   const dispatch = useDispatch();
@@ -22,6 +26,7 @@ function CartDetails() {
     const response = await dispatch(getCartDetails());
     console.log("cart resp", response);
     setCartDetails(response?.payload.data);
+    setisLoading(false);
   }
 
   async function handleRemove(productId) {
@@ -30,6 +35,7 @@ function CartDetails() {
     if (response?.payload?.success) {
       console.log("removed successfully");
       dispatch(getCartDetails()); // Fetch cart details and update state
+      
     }
   }
 
@@ -38,6 +44,15 @@ function CartDetails() {
     console.log("re-rendering");
     fetchCartDetails();
   }, [cartData?.items?.length]);
+
+  if(isLoading){
+    return (
+      <Layout>
+        <PageLoader/>
+         </Layout>
+
+    );
+  }
 
   return (
     <Layout>

@@ -10,12 +10,15 @@ import {
   removeProductCart,
   getCartDetails,
 } from "./../Redux/Slices/CartSlice";
+import PageLoader from './../Components/loading/PageLoader';
+
 function ProductDetailPage() {
   const { productId } = useParams();
   const dispatch = useDispatch();
   const [productDetails, setProductDetails] = useState({});
   const [quantity ,setquantity] = useState(0);
-  
+  const [isLoading, setisLoading] = useState(true);
+
   async function productquantity(){
 
     const resp = await dispatch(getCartDetails());
@@ -38,6 +41,7 @@ function ProductDetailPage() {
     const details = await dispatch(getproductDetails(productId));
     console.log(details);
     setProductDetails(details?.payload?.details);
+    setisLoading(false);
   }
   async function handleCart() {
     // Add product to cart
@@ -61,6 +65,15 @@ function ProductDetailPage() {
     fetchProductDetails();
     productquantity();
   }, [productId]);
+
+  if(isLoading){
+    return (
+      <Layout>
+        <PageLoader/>
+         </Layout>
+
+    );
+  }
 
   return (
     <Layout>

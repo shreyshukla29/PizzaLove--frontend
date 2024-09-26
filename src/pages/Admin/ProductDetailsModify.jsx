@@ -75,7 +75,6 @@ function ProductDetailsModify() {
  
     const resp = await dispatch(updateProduct({id:productId,details:UpdateproductDetails}));
     console.log(resp.payload)
-
     if (resp.payload.success) {
       setproductDetails(resp.payload.details);
       setModalIsOpen(false);
