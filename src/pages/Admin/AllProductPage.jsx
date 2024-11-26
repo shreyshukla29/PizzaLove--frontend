@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { lazy, Suspense ,useState} from "react";
+import { lazy, Suspense, useState } from "react";
 
 const ProductCard = lazy(() => {
   return new Promise((resolve) => {
@@ -12,7 +12,7 @@ import { getallProducts } from "./../../Redux/Slices/ProductSlice";
 import ProductCardLoader from "./../../Components/loading/ProductCardLoader";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "./../../layout/AdminLayout";
-import PageLoader from './../../Components/loading/PageLoader';
+import PageLoader from "./../../Components/loading/PageLoader";
 
 function AllProductsPage() {
   const { productData } = useSelector((state) => state.product);
@@ -29,13 +29,14 @@ function AllProductsPage() {
 
   useEffect(() => {
     dispatch(getallProducts());
-    if(productData.length >0){
-      console.log('hit')
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (productData.length > 0) {
       setisLoading(false);
     }
-  }, []);
-
-  if(isLoading)return <PageLoader/>
+  }, [productData.length]);
+  if (isLoading) return <PageLoader />;
   return (
     <AdminLayout>
       <div className=" flex w-full h-full items-center justify-center  mx-auto my-10 ">
