@@ -2,6 +2,12 @@
 
 Welcome to the **Pizza Ordering App**! 🍕 This web application allows users to order their favorite pizzas 🍽️ and track their orders in real-time 🚚. The app features a user-friendly interface and integrates with the backend to provide a seamless pizza ordering experience.
 
+
+## Live Demo 🌍
+
+You can try the app live here:  
+👉 [Pizza Love](https://your-frontend-live-link.com](https://pizzaapp-frontend.vercel.app/))
+
 ## Features 🌟
 
 - **🍕 Order Pizza:** Browse and order pizzas from a variety of options.
