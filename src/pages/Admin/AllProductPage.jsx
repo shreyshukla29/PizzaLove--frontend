@@ -29,7 +29,8 @@ function AllProductsPage() {
 
   useEffect(() => {
     dispatch(getallProducts());
-    if(productData.lenght>0){
+    if(productData.length >0){
+      console.log('hit')
       setisLoading(false);
     }
   }, []);
