@@ -6,7 +6,7 @@ Welcome to the **Pizza Ordering App**! 🍕 This web application allows users to
 ## Live Demo 🌍
 
 You can try the app live here:  
-👉 [Pizza Love](https://your-frontend-live-link.com](https://pizzaapp-frontend.vercel.app/))
+👉 [Pizza Love](https://pizzaapp-frontend.vercel.app/)
 
 ## Features 🌟
 
