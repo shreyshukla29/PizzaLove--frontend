@@ -3,7 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosinstance from "./../../Helpers/axiosinstance";
 import { toast } from "react-hot-toast";
 
-
 const initialState = {
   orders: [],
 };
@@ -22,19 +21,18 @@ export const getOrderDetails = createAsyncThunk(
   }
 );
 
-
 export const placeOrder = createAsyncThunk(
   "/orders/place",
   async (data, { rejectWithValue }) => {
     try {
-      const response =  axiosinstance.post("/orders/process", data);
+      const response = axiosinstance.post("/orders/process", data);
 
       toast.promise(response, {
         success: (resolvedPromise) => {
           return resolvedPromise.data.message;
         },
         loading: "Hold back tight , we are placing your order",
-        error: "something went wrong"
+        error: "something went wrong",
       });
       const order = await response;
       console.log("order created", order);
@@ -49,13 +47,13 @@ export const getOrder = createAsyncThunk(
   "/orders/get",
   async (orderId, { rejectWithValue }) => {
     try {
-      const response =  axiosinstance.get(`/orders/details/${orderId}`);
+      const response = axiosinstance.get(`/orders/details/${orderId}`);
       toast.promise(response, {
         success: (resolvedPromise) => {
           return resolvedPromise.data.message;
         },
         loading: "Hold back tight , we are fetching your order",
-        error: "something went wrong"
+        error: "something went wrong",
       });
       const order = await response;
       console.log("order fetch", order);
@@ -70,13 +68,13 @@ export const CancelOrder = createAsyncThunk(
   "/orders/cancel",
   async (orderId, { rejectWithValue }) => {
     try {
-      const response =  axiosinstance.put(`/orders/${orderId}/cancel`);
+      const response = axiosinstance.put(`/orders/${orderId}/cancel`);
       toast.promise(response, {
         success: (resolvedPromise) => {
           return resolvedPromise.data.message;
         },
         loading: "Hold back tight , we are Cancelling your order",
-        error: "something went wrong"
+        error: "something went wrong",
       });
       const order = await response;
       console.log("order fetch", order);
@@ -87,17 +85,20 @@ export const CancelOrder = createAsyncThunk(
   }
 );
 
-const OrderSlice =createSlice({
-  name:'product',
+const OrderSlice = createSlice({
+  name: "product",
   initialState,
-  reducer:{},
-  extraReducers:(builder)=>{
-      builder.addCase(getOrderDetails.fulfilled,(state,action)=>{
-          state.orders=action.payload?.data;
+  reducers: {
+    emptyorder: (state) => {
+      state.orders = [];
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getOrderDetails.fulfilled, (state, action) => {
+      state.orders = action.payload?.data;
+    });
+  },
+});
 
-      })
-     
-  }
-})
-
+export const { emptyorder } = OrderSlice.actions;
 export default OrderSlice.reducer;

@@ -21,16 +21,14 @@ function OrderPage() {
 
   const dispatch = useDispatch();
 
-  const [ordersDetail, setordersDetail] = useState([]);
-
+const [isLoading, setisLoading] = useState(true);
   async function fetchAllorder() {
     const orders = await dispatch(getOrderDetails());
-    console.log("payload", orders.payload);
-
-  if(orders.payload.sucess === true){
-    setordersDetail(()=> orders.payload);
-  
-    console.log("orders detail", ordersDetail);
+   console.log("orders",orders)
+  if(orders.payload.success === true){
+   
+    setisLoading(false);
+    console.log('hit loaidng')
   }
   }
 
@@ -43,7 +41,7 @@ function OrderPage() {
   return (
     <Layout>
    <Suspense fallback={<PageLoader/>}>
-   <OrderPagePresentation/>
+   <OrderPagePresentation loading={isLoading}/>
    </Suspense>
     </Layout>
   );

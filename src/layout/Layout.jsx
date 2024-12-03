@@ -10,25 +10,28 @@ import { refreshLogin } from "./../Redux/Slices/AuthSlice";
 import { useEffect } from "react";
 import Cartsvg from "./../Components/Icons/Cartsvg";
 
-import ProfileDropdown from '../Components/ProfileDropDown';
-import SuprSendInbox from '@suprsend/react-inbox'
-import 'react-toastify/dist/ReactToastify.css' 
-
-const Workspace_key = import.meta.env.VITE_WORKSPACE_KEY
+import ProfileDropdown from "../Components/ProfileDropDown";
+import SuprSendInbox from "@suprsend/react-inbox";
+import "react-toastify/dist/ReactToastify.css";
+import { removeCart } from "../Redux/Slices/CartSlice";
+import { emptyorder } from "../Redux/Slices/OrderSlice";
+const Workspace_key = import.meta.env.VITE_WORKSPACE_KEY;
 // eslint-disable-next-line react/prop-types
 function Layout({ children }) {
-  const { isLoggedIn ,role,data} = useSelector((state) => state.auth);
+  const { isLoggedIn, role, data } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log('email',data.email)
+  console.log("email", data.email);
 
   async function handleLogout(e) {
     e.preventDefault();
-   const resp = await  dispatch(logout());
+    const resp = await dispatch(logout());
 
-   if(resp.payload.success === true){
-    navigate('/')
-   }
+    if (resp.payload.success === true) {
+      await dispatch(removeCart())
+      await  dispatch(emptyorder())
+      navigate("/");
+    }
   }
 
   function handleCartClick(e) {
@@ -68,17 +71,19 @@ function Layout({ children }) {
         </div>
 
         <div className="flex  flex-row-reverse sm:flex-row gap-8 sm:gap-0 ">
-
-          <ProfileDropdown ></ProfileDropdown>
-
+          <ProfileDropdown></ProfileDropdown>
 
           <ul className="hidden sm:flex space-x-8 text-lg items-center pr-10">
-            <li className="hover:text-[#F0f0f0] hover:pointer transition duration-300 ease-in-out cursor-pointer"
-             onClick={()=> navigate('/')}>
+            <li
+              className="hover:text-[#F0f0f0] hover:pointer transition duration-300 ease-in-out cursor-pointer"
+              onClick={() => navigate("/")}
+            >
               <p>Home</p>
             </li>
-            <li className="hover:text-[#F0f0f0] transition duration-300 ease-in-out cursor-pointer"
-            onClick={()=> navigate('/orders/user')}>
+            <li
+              className="hover:text-[#F0f0f0] transition duration-300 ease-in-out cursor-pointer"
+              onClick={() => navigate("/orders/user")}
+            >
               <p>Orders</p>
             </li>
             <li className="hover:text-[#F0f0f0] transition duration-300 ease-in-out cursor-pointer">
@@ -87,20 +92,23 @@ function Layout({ children }) {
           </ul>
 
           <ul className="flex items-center gap-10 text-lg ">
-           {role === 'ADMIN' &&  <li className="hidden sm:block cursor-pointer"
-           onClick={()=> navigate('/admin/products')}>
-              Admin
-            </li>}
+            {role === "ADMIN" && (
+              <li
+                className="hidden sm:block cursor-pointer"
+                onClick={() => navigate("/admin/products")}
+              >
+                Admin
+              </li>
+            )}
             <li className=" cursor-pointer" onClick={handleCartClick}>
               <Cartsvg />
             </li>
             <li className="cursor-pointer">
-            <SuprSendInbox
-  
-  workspaceKey={ Workspace_key}
-  subscriberId= "yJ1LDy-a5g0KpZaldTIgHttM07rchOhZF5hlVWkeIDc"
-  distinctId= {data.email}
-/>
+              <SuprSendInbox
+                workspaceKey={Workspace_key}
+                subscriberId="yJ1LDy-a5g0KpZaldTIgHttM07rchOhZF5hlVWkeIDc"
+                distinctId={data.email}
+              />
             </li>
             <li className="hidden sm:block hover:text-[#f0f0f0] ease-in-out">
               {isLoggedIn === true ? (
@@ -109,11 +117,10 @@ function Layout({ children }) {
                 <Link to={"/auth/login"}>Login</Link>
               )}
             </li>
+            
           </ul>
         </div>
       </nav>
-
-     
 
       {children}
 

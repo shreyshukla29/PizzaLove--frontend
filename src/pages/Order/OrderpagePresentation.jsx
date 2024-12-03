@@ -1,12 +1,15 @@
+/* eslint-disable react/prop-types */
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import PageLoader from './../../Components/loading/PageLoader';
 
-function OrderPagePresentation() {
+function OrderPagePresentation({loading}) {
 
 
     const options = { year: "numeric", month: "long", day: "numeric" };
     const navigate=useNavigate();
    const {orders} = useSelector((state)=> state.orders)
+   if(loading) return <PageLoader/>
   return (
     <section className="h-full  w-full mb-4">
       {orders.length === 0 ? (
@@ -64,7 +67,7 @@ function OrderPagePresentation() {
 
               {order?.items?.map((products) => (
                 <div
-                  key={products.product?._id}
+                  key={products?._id}
                   className="flex gap-10 bg-gray-100 px-2 rounded-lg items-center  py-4"
                 >
                   <div className="hidden md:block">
