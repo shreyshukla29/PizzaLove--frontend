@@ -10,7 +10,7 @@ You can try the app live here:
 
 ## Backend Repository
   
-👉 [Pizza Love](https://github.com/shreyshukla29/Pizza-Love)
+👉 [Backend](https://github.com/shreyshukla29/Pizza-Love)
 
 ## Features 🌟
 
