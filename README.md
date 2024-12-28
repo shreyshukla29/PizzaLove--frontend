@@ -8,6 +8,10 @@ Welcome to the **Pizza Ordering App**! 🍕 This web application allows users to
 You can try the app live here:  
 👉 [Pizza Love](https://pizzaapp-frontend.vercel.app/)
 
+## Backend Repository
+  
+👉 [Pizza Love](https://github.com/shreyshukla29/Pizza-Love)
+
 ## Features 🌟
 
 - **🍕 Order Pizza:** Browse and order pizzas from a variety of options.
